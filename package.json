@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/nickoram/tanooki-suit/issues"
   },
-  "homepage": "https://github.com/nickoram/tanooki-suit#readme"
+  "homepage": "https://github.com/nickoram/tanooki-suit#readme",
+  "dependencies": {
+    "moment": "^2.18.1"
+  }
 }

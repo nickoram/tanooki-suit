@@ -1,6 +1,9 @@
-var config = require('./config/local/config');
+var config = require('./config/local/config'),
+  moment = require('moment');
 
 config.forEach(function(item) {
+
+  var mom = moment.unix(item.created_at).utc();
 
   var record = {
     id: item.id,
@@ -11,7 +14,15 @@ config.forEach(function(item) {
     city: item.city,
     province: item.province,
     country: item.country,
-    created: item.created_at
+    created: item.created_at,
+    moment: {
+      date: mom.format("YYYY-MM-DD HH:mm:ss Z"),
+      year: mom.format("YYYY"),
+      month: mom.format("MMMM"),
+      quarter: mom.format("Q"),
+      day: mom.format("dddd"),
+      time: mom.format("h:mm:ss a")
+    }
   };
 
   console.log(record);
