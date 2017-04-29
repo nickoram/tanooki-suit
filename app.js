@@ -1,7 +1,12 @@
-var config = require('./config/local/config'),
+var data = require('./config/local/data'),
   moment = require('moment');
 
-config.forEach(function(item) {
+var services = (process.env.VCAP_SERVICES) ?
+  JSON.parse(process.env.VCAP_SERVICES) : require('./config/local/cloudant');
+
+console.log(services.cloudantNoSQLDB);
+
+data.forEach(function(item) {
 
   var mom = moment.unix(item.created_at).utc();
 
@@ -25,5 +30,5 @@ config.forEach(function(item) {
     }
   };
 
-  console.log(record);
+  // console.log(record);
 });
