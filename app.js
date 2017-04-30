@@ -23,20 +23,24 @@ conn.db.create(config.db.doc.tanookiSuitData, function(err, res) {
 var db = conn.use(config.db.doc.tanookiSuitData);
 
 
+var beta = function() {
+  var url = "https://notifyapp.io/js-obj/e733b96313b6a19596854f09f8794535-31849/2592000/1/caches.js";
+  request(url, function(error, response, body) {
+    if (error)
+        return console.log('Request failed:' + error)
 
-var url = "https://notifyapp.io/js-obj/e733b96313b6a19596854f09f8794535-31849/1/1/caches.js";
-request(url, function(error, response, body) {
-  if (error)
-      return console.log('Request failed:' + error)
-
-  var regex = /notifyAppIo\.setup\((.*?)\)/g;
-  var match = regex.exec(body);
-  var result = eval(match[1]);
-  result.forEach(function(item) {
-    console.log({
-      id: item.id,
-      name: item.first_name,
-      timestamp: item.created_at
+    var regex = /notifyAppIo\.setup\((.*?)\)/g;
+    var match = regex.exec(body);
+    var result = eval(match[1]);
+    result.forEach(function(item) {
+      console.log({
+        id: item.id,
+        name: item.first_name,
+        timestamp: item.created_at
+      });
     });
   });
-});
+}
+
+beta();
+setInterval(beta, 5 * 60 * 1000);
