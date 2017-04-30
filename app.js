@@ -1,5 +1,6 @@
 var express = require('express'),
    cloudant = require('cloudant'),
+    request = require('request'),
      config = require('./config/config');
 
 var app = express();
@@ -20,4 +21,22 @@ conn.db.create(config.db.doc.tanookiSuitData, function(err, res) {
       config.db.doc.tanookiSuitData + ', it might already exist');
 });
 var db = conn.use(config.db.doc.tanookiSuitData);
-console.log(db);
+
+
+
+var url = "https://notifyapp.io/js-obj/e733b96313b6a19596854f09f8794535-31849/1/1/caches.js";
+request(url, function(error, response, body) {
+  if (error)
+      return console.log('Request failed:' + error)
+
+  var regex = /notifyAppIo\.setup\((.*?)\)/g;
+  var match = regex.exec(body);
+  var result = eval(match[1]);
+  result.forEach(function(item) {
+    console.log({
+      id: item.id,
+      name: item.first_name,
+      timestamp: item.created_at
+    });
+  });
+});
