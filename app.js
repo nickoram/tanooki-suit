@@ -124,4 +124,4 @@ var beta = function() {
 }
 
 beta();
-setInterval(beta, 15 * 60 * 1000);
+setInterval(beta, 5 * 60 * 1000);
